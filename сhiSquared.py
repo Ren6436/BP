@@ -1,11 +1,11 @@
-from collections import Counter
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
 import seaborn as sns
 from scipy.stats import chi2_contingency
-import matplotlib.pyplot as plt
-import pandas as pd
-
-from questions import *
+from collections import Counter
 import questions
+from questions import *
 
 
 class ChiSquaredAnalyzer:
@@ -106,6 +106,7 @@ class ChiSquaredAnalyzer:
     def visualize(self, results, show=True):
         """
         Vykreslí výsledné kontingenční tabulky jako heatmapy (1 graf na otázku).
+        Přidá do varování i hodnoty χ², df a p.
         """
         for qnum, res in results.items():
             df = res["table"]
@@ -114,10 +115,16 @@ class ChiSquaredAnalyzer:
             fig, ax = plt.subplots(figsize=(max(6, len(df.columns) * 1.2), max(4, len(df) * 0.6)), dpi=150)
             ax.set_title(f"Q{qnum} — Chi-squared Crosstab", fontsize=10, pad=15)
 
-            # případné varování o nízkých očekávaných hodnotách
+            # vytvoření warningu
             warn = res.get("warn", "")
-            if warn:
-                ax.text(0.5, 1.02, warn, ha="center", va="bottom", fontsize=5, transform=ax.transAxes)
+            chi2 = res.get("chi2", np.nan)
+            p = res.get("p_value", np.nan)
+            dof = res.get("dof", np.nan)
+
+            if warn or not np.isnan(chi2):
+                # přidáme hodnoty χ², df a p do textu varování
+                warn_text = f"χ² = {chi2:.3f}, df = {dof}, p = {p:.4f}" + (warn if warn else "")
+                ax.text(0.5, 1.02, warn_text, ha="center", va="bottom", fontsize=6, transform=ax.transAxes)
 
             # heatmapa samotné kontingenční tabulky
             sns.heatmap(df, annot=True, fmt='d', cmap="Blues", cbar=False,

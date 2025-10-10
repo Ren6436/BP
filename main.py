@@ -30,7 +30,7 @@ def main():
             names_for_grafs,
         ) = hyp()
 
-        # 1️⃣ Vykreslení grafů
+        # Vykreslení grafů
         chart = Chart(
             multi_choice_numbers,
             multi_choice_lists,
@@ -42,11 +42,12 @@ def main():
         )
         chart.run()
 
+        # Anova
         anova = AnovaQ34(group_list, group_names)
         anova.run()
         anova.visualize()
 
-        # 2️⃣ Chi-squared analýza
+        # Chi-squared analýza
         chi = ChiSquaredAnalyzer(group_list, group_names, multi_choice_numbers)
         results = chi.run()
         chi.visualize(results)
