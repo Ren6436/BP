@@ -30,3 +30,4 @@ question_27 = df.loc[1:, 'Jak byste hodnotili svůj přístup k povinnostem a or
 question_28 = df.loc[1:, 'Jak obvykle reagujete na stresové situace?'].dropna().apply(lambda x: re.sub(r'\s+', ' ', str(x)).strip()).tolist()
 question_29 = df.loc[1:, 'Jak se stavíte k novým myšlenkám a zkušenostem?'].dropna().apply(lambda x: re.sub(r'\s+', ' ', str(x)).strip()).tolist()
 question_30 = df.loc[1:, 'Jaký typ úkolů Vás nejvíce motivuje?'].dropna().apply(lambda x: re.sub(r'\s+', ' ', str(x)).strip()).tolist()
+question_34 = df.loc[1:, 'Kolika projektů jste se zúčastnil(a)?'].dropna().apply(lambda x: re.sub(r'\s+', ' ', str(x)).strip()).tolist()

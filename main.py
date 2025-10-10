@@ -10,6 +10,7 @@ from hypothesis.hypothesis5 import hypoteza5
 # --- Import tříd ---
 from chart import Chart
 from сhiSquared import ChiSquaredAnalyzer
+from anova import AnovaQ34
 
 # --- Import otázek ---
 from questions import *
@@ -41,6 +42,10 @@ def main():
         )
         chart.run()
 
+        anova = AnovaQ34(group_list, group_names)
+        anova.run()
+        anova.visualize()
+
         # 2️⃣ Chi-squared analýza
         chi = ChiSquaredAnalyzer(group_list, group_names, multi_choice_numbers)
         results = chi.run()
@@ -49,3 +54,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
